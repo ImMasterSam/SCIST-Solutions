@@ -23,7 +23,7 @@ int gcd(int a, int b){
 
 int main(){
 	
-	string s;
+	char s[2000000];
 	int t;
 	cin >> t;
 	
@@ -33,14 +33,17 @@ int main(){
 		
 		long long up = 1, down = 1;
 		
-		getline(cin, s);
+		s[0] = ' ';
+		fgets(s+1, sizeof(s) - 1, stdin);
 		
 		int pos;
-		const char* ptr = s.c_str();
+		const char* ptr = s;
 		
 		char buf[128];
 		
 		while(true){
+			
+			//cout << "-> " << ptr << "\n";
 			
 			int res = sscanf(ptr, "%*[^0-9]%[^ ]%n", buf, &pos);
 			
@@ -51,7 +54,7 @@ int main(){
 			
 			int a, b, c;
 			
-			int cnt = sscanf(buf, "%d%*[^0-9]%d%*[^0-9]%d", &a, &b, &c);
+			int cnt = sscanf(buf, "%d%*c%d%*c%d", &a, &b, &c);
 			
 			if(cnt == 1){
 				up *= a;
@@ -67,16 +70,43 @@ int main(){
 						
 		}
 		
-		int g = (down != 0) ? gcd(up, down) : up;
+		//cout << "debug1: " << up << " / " << down << endl;
 		
-		//cout << up << "/" << down << "\n";
-		
-		
-		if(up > down){
-			cout << up/down << "-";
+		if(up == 0){
+			
+			cout << "0\n";
+			continue;
+			
 		}
 		
-		cout << (up/g)%(down/g) << "/" << down/g << "\n";
+		int g = (up != 0 && down != 0) ? gcd(up, down) : 1;
+		
+		up = up / g;
+		down = down / g;
+		
+		//cout << "debug2: " << up << " / " << down << endl;
+		
+		int carry = up/down;
+		up %= down;
+		
+		g = (up != 0 && down != 0) ? gcd(up, down) : 1;
+		up = up / g;
+		down = down / g;
+		
+		if(carry > 0){
+			cout << carry;
+		}
+		
+		if(up != 0){
+			
+			if(carry != 0)
+				cout << "-";
+				
+			cout << up << "/" << down;
+			
+		}
+		
+		cout << "\n";
 		
 		//cin.ignore();
 		

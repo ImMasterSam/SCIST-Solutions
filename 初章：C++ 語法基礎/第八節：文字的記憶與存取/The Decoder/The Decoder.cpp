@@ -1,16 +1,17 @@
-#include<iostream>
+#include <bits/stdc++.h>
+#define BOOST ios_base::sync_with_stdio(false);cin.tie(0); 
 using namespace std;
 
-int main(){
-	
+int main(){ BOOST
+
 	string s;
 	
 	while(getline(cin, s)){
 		
-		for(int i=0;i<s.size();i++)
-			cout <<(char) (s[i]-7);
-		
+		for(char &c : s)
+			cout << (char)(c - 7);
 		cout << "\n";
+		
 	}
 	
 	return 0;

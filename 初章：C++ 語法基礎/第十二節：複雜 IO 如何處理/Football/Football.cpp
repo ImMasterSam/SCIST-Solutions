@@ -22,8 +22,11 @@ bool check(string s1, string s2){
 
 int main(){
 	
+	bool first = true;
+	
 	int n;
 	cin >> n;
+	cin.ignore();
 	
 	string name, s;
 	string t_name[35];
@@ -37,8 +40,6 @@ int main(){
 	int diff[35] = {0};
 	int used[35] = {0};
 	int t, g;
-	
-	cin.ignore();
 	
 	for(int time=0;time<n;time++){
 		
@@ -126,6 +127,16 @@ int main(){
 		int rank = 1;
 		
 		cout << name << "\n";
+		
+		// 這個小朋友在還沒上大學之前不甚麼都不會
+		// 這個就很傷眼睛了
+		
+		// 我終於看懂了
+		// 一個selection 的概念
+		// 害我看到快要脫窗
+		
+		// By 20240817 凌晨的我
+		
 		for(int i=0;i<t;i++){
 			
 			int index = 0;
@@ -150,7 +161,7 @@ int main(){
 						else if(diff[j] == diff[index]){
 							if(scored[j] > scored[index])
 								index = j;
-							else if(scored[j] > scored[index]){
+							else if(scored[j] == scored[index]){
 								if(played[j] < played[index])
 									index = j;
 								else if(played[j] == played[index]){
@@ -171,9 +182,8 @@ int main(){
 			}
 			cout << "\n";*/
 			
-			printf("%d) %s %dp, %dg (%d-%d-%d), %dgd (%d-%d)", rank++, t_name[index].c_str(), point[index], played[index], win[index], tie[index], lose[index], diff[index], scored[index], against[index]);
-			if(time!=n-1 || i != t-1)
-				cout << "\n";
+			printf("%d) %s %dp, %dg (%d-%d-%d), %dgd (%d-%d)\n", rank++, t_name[index].c_str(), point[index], played[index], win[index], tie[index], lose[index], diff[index], scored[index], against[index]);
+
 		}
 		
 		if(time != n-1)
